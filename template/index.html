@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto 50px auto;
+            display: flex;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px 0 0 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .book-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .book-item {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Book Blog 📚</h1>
+
+    <form action="/list/books/search" method="GET">
+        <input type="text" name="q" placeholder="Search for a book..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="book-list">
+        {{ range .Data }}
+            <div class="book-item">
+                <h2>{{ .Name }}</h2>
+                <p><strong>Author:</strong> {{ .Author }}</p>
+                <p><strong>Published:</strong> {{ .Published_date }}</p>
+                <p>{{ .Description }}</p>
+            </div>
+        {{ else }}
+            <p>No books found.</p>
+        {{ end }}
+    </div>
+</body>
+</html>

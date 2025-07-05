@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto 50px auto;
+            display: flex;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px 0 0 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .book-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .book-item {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Новый стиль для блока поиска и ссылки */
+        .search-bar {
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .search-query {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 18px;
+            box-shadow: 0 3px 8px rgba(0, 123, 255, 0.4);
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+
+        .back-link svg {
+            margin-right: 6px;
+            fill: currentColor;
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ .Title }} 📚</h1>
+
+    <div class="search-bar">
+        <p>Search query: <span class="search-query">{{ .Query }}</span></p>
+        <a href="/list/books" class="back-link" aria-label="Back to all books">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Back to all books
+        </a>
+    </div>
+
+    <div class="book-list">
+        {{ range .Data }}
+            <div class="book-item">
+                <h2>{{ .Name }}</h2>
+                <p><strong>Author:</strong> {{ .Author }}</p>
+                <p><strong>Published:</strong> {{ .Published_date }}</p>
+                <p>{{ .Description }}</p>
+            </div>
+        {{ else }}
+            <p>No books found matching your query.</p>
+        {{ end }}
+    </div>
+</body>
+</html>
