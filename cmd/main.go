@@ -61,6 +61,9 @@ func main() {
 
 	router.HandleFunc("/list/books", handlers.HandlerBooksPage).Methods("GET")
 	router.HandleFunc("/list/books/search", handlers.HandlerBooksSearchPage).Methods("GET")
+	router.HandleFunc("/list/books/add", handlers.HandlerBooksAddPage).Methods("GET")
+	router.HandleFunc("/list/books/add", handlers.HandlerBooksSubmitPage).Methods("POST")
+
 
 	log.Fatal(http.ListenAndServe(":7070", router))
 }

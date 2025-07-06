@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add New Book</h1>
+
+    <form action="/list/books/add" method="POST">
+        <label for="name">Book Name</label>
+        <input type="text" id="name" name="name" placeholder="Обов'язково" required>
+
+        <label for="author">Author</label>
+        <input type="text" id="author" name="author" placeholder="Обов'язково" required>
+
+        <label for="published_date">Published Date</label>
+        <input type="text" id="published_date" name="published_date" placeholder="Обов'язково e.g. 2020-01-01" required>
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" placeholder="Не Обов'язково" rows="4" required></textarea>
+
+        <button type="submit">Add Book</button>
+    </form>
+
+    <div class="back-link">
+        <a href="/list/books">← Back to list</a>
+    </div>
+</body>
+</html>

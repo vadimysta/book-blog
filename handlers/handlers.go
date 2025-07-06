@@ -1,10 +1,10 @@
 package handlers
 
 import (
+	"database/sql"
 	"html/template"
 	"log"
 	"net/http"
-	"database/sql"
 
 	_ "modernc.org/sqlite"
 )
@@ -26,6 +26,57 @@ type Book struct {
 	Author string
 	Published_date string
 	Description string
+}
+
+type PageDataAdd struct {
+	Title string
+}
+
+
+func HandlerBooksSubmitPage(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		log.Fatalf("Error: parse forms html template %v", err)
+	}
+
+	name := r.FormValue("name")
+	author := r.FormValue("author")
+	published_date := r.FormValue("published_date")
+	description := r.FormValue("description")
+
+	if name == "" || author == "" || published_date == "" {
+		http.Error(w, "Введіть всі необхідні данні", http.StatusInternalServerError)
+		return
+	}
+
+	data, err := sql.Open("sqlite", "data/books.db")
+	if err != nil {
+		log.Fatalf("Error: opens data file %v", err)
+	}
+
+	defer data.Close()
+
+	if _, err := data.Exec(`INSERT INTO books(name, author, published_date, description)
+	VALUES (?, ?, ?, ?)`, name, author, published_date, description); err != nil {
+		log.Fatalf("Error: inserts statement %v", err)
+	}
+
+	http.Redirect(w, r, "/list/books", http.StatusSeeOther)
+}
+
+
+func HandlerBooksAddPage(w http.ResponseWriter, r *http.Request) {
+	adds :=  PageDataAdd{
+		Title: "Заповнення поста",
+	}
+
+	tmpl, err := template.ParseFiles("template/add.html")
+	if err != nil {
+		log.Fatalf("Error: parse file template html %v", err)
+	}
+
+	if err := tmpl.Execute(w, adds); err != nil {
+		log.Fatalf("Error: executes html template %v", err)
+	}
 }
 
 func HandlerBooksPage(w http.ResponseWriter, r *http.Request) {

@@ -16,13 +16,19 @@
             margin-bottom: 40px;
         }
 
-        form {
-            max-width: 500px;
+        .search-add-container {
+            max-width: 600px;
             margin: 0 auto 50px auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-form {
+            flex: 1;
             display: flex;
         }
 
-        input[type="text"] {
+        .search-form input[type="text"] {
             flex: 1;
             padding: 10px;
             font-size: 16px;
@@ -30,7 +36,7 @@
             border-radius: 4px 0 0 4px;
         }
 
-        button {
+        .search-form button {
             padding: 10px 20px;
             font-size: 16px;
             border: none;
@@ -40,7 +46,21 @@
             cursor: pointer;
         }
 
-        button:hover {
+        .search-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .add-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
             background-color: #0056b3;
         }
 
@@ -61,10 +81,16 @@
 <body>
     <h1>Book Blog 📚</h1>
 
-    <form action="/list/books/search" method="GET">
-        <input type="text" name="q" placeholder="Search for a book..." required>
-        <button type="submit">Search</button>
-    </form>
+    <div class="search-add-container">
+        <form action="/list/books/search" method="GET" class="search-form">
+            <input type="text" name="q" placeholder="Search for a book..." required>
+            <button type="submit">Search</button>
+        </form>
+
+        <form action="/list/books/add">
+            <button class="add-btn">+</button>
+        </form>
+    </div>
 
     <div class="book-list">
         {{ range .Data }}
